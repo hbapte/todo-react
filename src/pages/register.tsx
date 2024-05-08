@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../styles/pages/register.css';
 
 const RegisterForm: React.FC = () => {
@@ -9,23 +10,24 @@ const RegisterForm: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const onSubmit = async (data: any) => {
         try {
             const response = await axios.post('https://todo-express-server-0yda.onrender.com/api/auth/register', data);
-            console.log(response.data); // Log success message
-            // Redirect to login page or show a success message to the user
+            console.log(response.data); 
+            
+            navigate('/login');
         } catch (error) {
             console.error('Error registering user:', error);
             if ((error as any).response && (error as any).response.data) {
                 const { error: backendError } = (error as any).response.data;
                 setErrorMessage(backendError); 
-                // Loop through backend errors and set them using setError from react-hook-form
                 Object.entries(backendError).forEach(([key, value]) => {
-                    setError(key, { type: 'server', message: value as string }); // Cast value to string
+                    setError(key, { type: 'server', message: value as string }); 
                 });
             } else {
-                setErrorMessage('An unexpected error occurred.'); // Set a generic error message
+                setErrorMessage('An unexpected error occurred.');
             }
         }
     };
