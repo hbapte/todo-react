@@ -1,0 +1,26 @@
+/* AddTaskForm.css */
+.add-task-form {
+    margin-bottom: 20px;
+    display: flex;
+  }
+  
+  .add-task-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+  }
+  
+  .add-task-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .add-task-button:hover {
+    background-color: #218838;
+  }
+  

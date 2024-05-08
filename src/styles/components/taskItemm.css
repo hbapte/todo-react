@@ -1,0 +1,13 @@
+.task-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .task-item:last-child {
+    border-bottom: none;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+  }
+  

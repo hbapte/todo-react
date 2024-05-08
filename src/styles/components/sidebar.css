@@ -1,0 +1,44 @@
+/* sidebar.css */
+.sidebar {
+    width: 200px;
+    background-color: #3f51b5; /* Changed background color to a shade of blue */
+    height: 100%; /* Height set to 100% to fill its container */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar li span {
+    margin-left: 10px;
+    color: #fff; /* Changed text color to white */
+  }
+  
+  .sidebar li:hover {
+    background-color: #5264ae; /* Darker shade of blue on hover */
+  }
+  
+  .logout-btn {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #fff; /* Changed text color to white */
+  }
+  
+  .logout-btn span {
+    margin-left: 10px;
+  }
+  

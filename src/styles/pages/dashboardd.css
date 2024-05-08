@@ -1,0 +1,10 @@
+/* dashboard.css */
+.dashboard {
+    display: flex;
+  }
+  
+  /* Set background color for the entire dashboard */
+  body {
+    background-color: #f0f2f5; /* Light background color */
+  }
+  
