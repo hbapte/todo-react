@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/TaskPage';
 import NotFound from './pages/notFound';
-import RegisterForm from './pages/register';
-import LoginForm from './pages/login';
-import ResetPasswordForm from './pages/ResetPasswordForm';
-import ForgotPasswordForm from './pages/ForgotPasswordForm';
-import RequestVerificationLinkForm from './pages/RequestEmailToken';
+import RegisterForm from './pages/auth/register';
+import LoginForm from './pages/auth/login';
+import ResetPasswordForm from './pages/auth/ResetPasswordForm';
+import ForgotPasswordForm from './pages/auth/ForgotPasswordForm';
+import RequestVerificationLinkForm from './pages/auth/RequestEmailToken';
 import './styles/global.css';
 
 const ProtectedRoute: React.FC<{ element: JSX.Element }> = ({ element }) => {

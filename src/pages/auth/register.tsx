@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/pages/register.css';
+import '../../styles/pages/auth/register.css';
 
 const RegisterForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm(); // Add setError from react-hook-form

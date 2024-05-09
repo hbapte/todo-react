@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/pages/requestEmailToken.css';
+import '../../styles/pages/auth/requestEmailToken.css';
 
 interface FormData {
   email: string;

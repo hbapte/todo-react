@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/pages/login.css';
+import '../../styles/pages/auth/login.css';
 
 const LoginForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
