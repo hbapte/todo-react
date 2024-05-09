@@ -73,7 +73,7 @@ const LoginForm: React.FC = () => {
 
                         <div className="forgot-linkk">
                             <label htmlFor="password" className="login-label">Password:</label>
-                            <a href="./forgot-pswd.html" className="forgot-link">Forgot Password?</a>
+                            <a href="/forgot-password" className="forgot-link">Forgot Password?</a>
                         </div>
 
                         <input type={showPassword ? 'text' : 'password'} {...register('password', { required: true, minLength: 6 })} />
