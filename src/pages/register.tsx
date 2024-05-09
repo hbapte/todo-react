@@ -2,35 +2,32 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/pages/register.css';
 
 const RegisterForm: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, setError } = useForm(); // Add setError from react-hook-form
+    const { register, handleSubmit, formState: { errors } } = useForm(); // Add setError from react-hook-form
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    const [errorMessage] = useState('');
+  
 
     const onSubmit = async (data: any) => {
         try {
             const response = await axios.post('https://todo-express-server-0yda.onrender.com/api/auth/register', data);
             console.log(response.data); 
-            
-            navigate('/login');
+            toast.success('Registration successful, Please verify email to login!');
         } catch (error) {
             console.error('Error registering user:', error);
-            if ((error as any).response && (error as any).response.data) {
-                const { error: backendError } = (error as any).response.data;
-                setErrorMessage(backendError); 
-                Object.entries(backendError).forEach(([key, value]) => {
-                    setError(key, { type: 'server', message: value as string }); 
-                });
+            if ((error as any).response && (error as any).response.data && (error as any).response.data.error) {
+                toast.error((error as any).response.data.error);
             } else {
-                setErrorMessage('An unexpected error occurred.');
+                toast.error('An unexpected error occurred.');
             }
         }
     };
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -41,6 +38,7 @@ const RegisterForm: React.FC = () => {
     };
 
     return (
+        <>
         <main id="signup-form">
             <form id="SignUpForm" onSubmit={handleSubmit(onSubmit)}>
                 <div id="signup-headers">
@@ -119,6 +117,8 @@ const RegisterForm: React.FC = () => {
                 </fieldset>
             </form>
         </main>
+        <ToastContainer />
+        </>
     );
 };
 

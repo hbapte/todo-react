@@ -11,6 +11,17 @@ const ProtectedRoute: React.FC<{ element: JSX.Element }> = ({ element }) => {
         const token = localStorage.getItem('token');
         if (!token) {
             window.location.href = '/login';
+        } else {
+            const tokenExpiry = localStorage.getItem('tokenExpiry');
+            if (tokenExpiry) {
+                const expiryTime = new Date(tokenExpiry).getTime();
+                if (expiryTime < Date.now()) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('tokenExpiry');
+                    window.location.href = '/login';
+                }
+            }
         }
     }, []);
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '../styles/pages/login.css'; 
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 
@@ -15,18 +17,28 @@ const LoginForm: React.FC = () => {
     const onSubmit = async (data: any) => {
         try {
             const response = await axios.post('https://todo-express-server-0yda.onrender.com/api/auth/login', data);
-            const { message, user, token } = response.data;
-            console.log(message); 
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(user));
-            navigate('/');
-        } catch (error) {
+            const { message, user, token, error } = response.data;
+            if (error) {
+                setErrorMessage(error); 
+                toast.error(error); 
+            } else {
+                const expiryTime = new Date();
+                expiryTime.setTime(expiryTime.getTime() + (1 * 60 * 60 * 1000)); 
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('tokenExpiry', expiryTime.toString());
+                toast.success(message);
+                navigate('/');
+
+            }
+        } catch (error: any) {
             console.error('Error logging in user:', error);
-            if ((error as any).response && (error as any).response.data) {
-                const { error: backendError } = (error as any).response.data;
-                setErrorMessage(backendError); 
+            if (error.response && error.response.data && error.response.data.error) {
+                setErrorMessage(error.response.data.error); 
+                toast.error(error.response.data.error); 
             } else {
                 setErrorMessage('An unexpected error occurred.');
+                toast.error('An unexpected error occurred.'); 
             }
         }
     };
@@ -36,6 +48,7 @@ const LoginForm: React.FC = () => {
     };
 
     return (
+        <>
         <main id="login-form">
             <form id="LoginForm" onSubmit={handleSubmit(onSubmit)}>
                 <div id="login-headers">
@@ -75,12 +88,13 @@ const LoginForm: React.FC = () => {
                         </div>
 
                         <button type="submit" className="login-btn">Sign In</button>
-                        {errorMessage && <div className="error-message">{errorMessage}</div>}
                         <div id="LoginSent"></div>
                     </div>
                 </fieldset>
             </form>
         </main>
+         <ToastContainer />
+         </>
     );
 };
 
