@@ -4,6 +4,8 @@ import HomePage from './pages/TaskPage';
 import NotFound from './pages/notFound';
 import RegisterForm from './pages/register';
 import LoginForm from './pages/login';
+import ResetPasswordForm from './pages/ResetPasswordForm';
+import ForgotPasswordForm from './pages/ForgotPasswordForm';
 import RequestVerificationLinkForm from './pages/RequestEmailToken';
 import './styles/global.css';
 
@@ -35,6 +37,8 @@ const App: React.FC = () => {
             <Routes>
                 <Route path="/signup" element={<RegisterForm />} />
                 <Route path="/request-email-token" element={<RequestVerificationLinkForm  />} />
+                <Route path="/reset-password" element={<ResetPasswordForm />} />
+                <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
                 <Route path="*" element={<NotFound />} />
