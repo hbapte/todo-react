@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import '../styles/pages/login.css'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import axios from 'axios';
+import '../styles/pages/login.css';
 
 const LoginForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const emailVerifiedSuccessfully = params.get('emailVerifiedSuccessfully');
+        if (emailVerifiedSuccessfully) {
+            toast.success('Email verified successfully, Now Login!');
+        }
+    }, [location.search]);
 
     const onSubmit = async (data: any) => {
         try {
@@ -29,7 +36,6 @@ const LoginForm: React.FC = () => {
                 localStorage.setItem('tokenExpiry', expiryTime.toString());
                 toast.success(message);
                 navigate('/');
-
             }
         } catch (error: any) {
             console.error('Error logging in user:', error);
@@ -65,11 +71,9 @@ const LoginForm: React.FC = () => {
                         {errors.email && errors.email.type === 'required' && <div className="error-message">Email is required</div>}
                         {errors.email && errors.email.type === 'pattern' && <div className="error-message">Invalid email</div>}
 
-
                         <div className="forgot-linkk">
                             <label htmlFor="password" className="login-label">Password:</label>
                             <a href="./forgot-pswd.html" className="forgot-link">Forgot Password?</a>
-
                         </div>
 
                         <input type={showPassword ? 'text' : 'password'} {...register('password', { required: true, minLength: 6 })} />
@@ -93,8 +97,8 @@ const LoginForm: React.FC = () => {
                 </fieldset>
             </form>
         </main>
-         <ToastContainer />
-         </>
+        <ToastContainer />
+        </>
     );
 };
 
